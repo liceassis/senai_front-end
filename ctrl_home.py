@@ -24,4 +24,24 @@ def dashboard(): # função que gerencia rota
     # if 'user' not in session:
     #     return redirect(url_for("auth.login"))
     
-    return render_template("dashboard/index.html", title="Painel de Vendas") # Renderiza um template
+    # remova o login
+    import locale
+    # Configura para o formato brasileiro
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+
+    vendas: list = [
+        {"mes":"Janeiro","total": 139519.19},
+        {"mes":"Fevereiro","total": 131571.23},
+        {"mes":"Março","total": 140571.25},
+        {"mes":"Abril","total": 145681.30},
+        {"mes":"Maio","total": 147761.20},
+        {"mes":"Junho","total": 142591.65},
+        {"mes":"Julho","total": 119996.18},
+        {"mes":"Agosto","total": 132199.89},
+        {"mes":"Setembro","total": 129889.69},
+        {"mes":"Outubro","total": 138598.29},
+        {"mes":"Novembro","total": 145599.99},
+        {"mes":"Dezembro","total": 211641.69}
+    ] #fim lista
+
+    return render_template("dashboard/index.html", title="Painel de Venda", vendas=vendas, locale=locale) # Renderiza um template
