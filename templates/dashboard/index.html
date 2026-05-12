@@ -2,7 +2,7 @@
 
 {% block page_header %} 
 <script src="../assets/js/color-modes.js"></script>
-<link href="/static/bootstrap-5.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<!--<link href="/static/bootstrap-5.3.6/css/bootstrap.min.css" rel="stylesheet" />-->
 <meta name="theme-color" content="#712cf9" />
 <link href="/static/css/dashboard.css" rel="stylesheet" />
 {% endblock %}
@@ -373,7 +373,47 @@
       crossorigin="anonymous"
       class="astro-vvvwv3sm"
     ></script>
-    <script src="/static/css/dashboard.js" class="astro-vvvwv3sm"></script>
+    <script type="text/javascript">
+      /* globals Chart:false */
 
+(() => {
+  'use strict'
+
+  // Graphs
+  const ctx = document.getElementById('myChart')
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [
+        {% for venda in vendas%}
+        "{{venda.get("mes")}}",
+        {% endfor %}
+      ],
+      datasets: [{
+        data: [
+        {% for venda in vendas%}
+        {{venda.get("total")}},
+        {% endfor %}
+        ],
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#007bff',
+        borderWidth: 4,
+        pointBackgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: true
+        },
+        tooltip: {
+          boxPadding: 3
+        }
+      }
+    }
+  })
+})()
+    </script>
 
      {% endblock %}
